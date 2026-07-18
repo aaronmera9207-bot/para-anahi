@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff8f4">
+  <title>Para Anahí 🌼</title>
+
+  <style>
+    :root{
+      --paper:#fffdfb;
+      --blush:#fbe8e3;
+      --rose:#df7185;
+      --rose-deep:#bc5066;
+      --peach:#f2ae7f;
+      --ink:#3f3035;
+      --muted:#80676d;
+      --green:#6f9769;
+      --shadow:0 28px 70px rgba(102,61,72,.16);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+
+    body{
+      min-height:100vh;
+      overflow-x:hidden;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%,rgba(255,255,255,.98),transparent 25%),
+        radial-gradient(circle at 90% 12%,rgba(255,216,205,.60),transparent 28%),
+        linear-gradient(145deg,#fffaf7,#fbe8e3);
+    }
+
+    body::before,
+    body::after{
+      content:"";
+      position:fixed;
+      border-radius:50%;
+      filter:blur(8px);
+      opacity:.16;
+      pointer-events:none;
+    }
+
+    body::before{
+      width:250px;height:250px;
+      left:-90px;bottom:-90px;
+      background:#ef9b83;
+    }
+
+    body::after{
+      width:230px;height:230px;
+      right:-90px;top:18%;
+      background:#f0c475;
+    }
+
+    main{
+      position:relative;
+      z-index:1;
+      width:min(940px,92%);
+      margin:auto;
+      padding:18px 0;
+    }
+
+    .card{
+      min-height:calc(100vh - 36px);
+      position:relative;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      text-align:center;
+      padding:36px 20px;
+      border-radius:36px;
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(255,255,255,.92);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:13px;
+      border:1px solid rgba(207,91,113,.12);
+      border-radius:27px;
+      pointer-events:none;
+    }
+
+    .screen{
+      display:none;
+      width:100%;
+      max-width:735px;
+      animation:screenIn .85s cubic-bezier(.22,.75,.25,1) both;
+    }
+
+    .screen.active{display:block}
+
+    @keyframes screenIn{
+      from{opacity:0;transform:translateY(24px) scale(.985);filter:blur(4px)}
+      to{opacity:1;transform:none;filter:none}
+    }
+
+    .eyebrow{
+      margin-bottom:11px;
+      color:var(--rose-deep);
+      font-size:.74rem;
+      font-weight:800;
+      letter-spacing:.23em;
+      text-transform:uppercase;
+    }
+
+    h1,h2{
+      font-family:Georgia,"Times New Roman",serif;
+      font-weight:500;
+      line-height:1.03;
+    }
+
+    h1{
+      margin-bottom:15px;
+      font-size:clamp(3.1rem,9vw,5.8rem);
+    }
+
+    h2{
+      margin-bottom:18px;
+      font-size:clamp(2.3rem,7vw,4.3rem);
+    }
+
+    .copy{
+      max-width:620px;
+      margin:auto;
+      color:var(--muted);
+      font-size:clamp(1rem,2.7vw,1.18rem);
+      line-height:1.8;
+    }
+
+    .highlight{
+      color:var(--rose-deep);
+      font-weight:800;
+    }
+
+    .typewriter{
+      min-height:84px;
+      max-width:620px;
+      margin:auto;
+      color:var(--muted);
+      font-size:clamp(1rem,2.7vw,1.18rem);
+      line-height:1.8;
+    }
+
+    .cursor{
+      display:inline-block;
+      width:2px;
+      height:1em;
+      margin-left:3px;
+      background:var(--rose-deep);
+      vertical-align:-2px;
+      animation:blink .8s infinite;
+    }
+
+    @keyframes blink{50%{opacity:0}}
+
+    .single-flower{
+      position:relative;
+      width:320px;
+      height:335px;
+      margin:8px auto 0;
+    }
+
+    .single-flower::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:20px;
+      width:170px;height:22px;
+      transform:translateX(-50%);
+      border-radius:50%;
+      background:rgba(76,52,58,.08);
+      filter:blur(3px);
+    }
+
+    .gerbera{
+      position:absolute;
+      left:50%;top:13px;
+      width:224px;height:224px;
+      transform:translateX(-50%);
+      animation:float 3.6s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      50%{transform:translateX(-50%) translateY(-8px) rotate(1deg)}
+    }
+
+    .petal-ring,
+    .petal-ring.inner{
+      position:absolute;
+      border-radius:50%;
+      filter:drop-shadow(0 10px 14px rgba(131,68,80,.14));
+    }
+
+    .petal-ring{
+      inset:0;
+      background:repeating-conic-gradient(
+        from 1deg,
+        #ef7f8e 0 6deg,
+        #f9ad96 6deg 12deg,
+        #e96e82 12deg 18deg,
+        #ffc1a7 18deg 24deg
+      );
+      -webkit-mask:radial-gradient(circle,transparent 0 26%,#000 27%);
+      mask:radial-gradient(circle,transparent 0 26%,#000 27%);
+    }
+
+    .petal-ring.inner{
+      inset:31px;
+      transform:rotate(5deg);
+      background:repeating-conic-gradient(
+        #e96e82 0 8deg,
+        #f9a88e 8deg 16deg
+      );
+      -webkit-mask:radial-gradient(circle,transparent 0 30%,#000 31%);
+      mask:radial-gradient(circle,transparent 0 30%,#000 31%);
+    }
+
+    .flower-center{
+      position:absolute;
+      left:50%;top:50%;
+      width:76px;height:76px;
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 35% 35%,#f8cf62 0 3%,transparent 4%),
+        radial-gradient(circle at 62% 55%,#eeb547 0 3%,transparent 4%),
+        radial-gradient(circle,#60402f 0 18%,#8f6037 19% 40%,#d99a39 41% 68%,#efc35c 69%);
+      box-shadow:0 7px 18px rgba(82,48,35,.23);
+      z-index:3;
+    }
+
+    .stem{
+      position:absolute;
+      left:50%;top:200px;
+      width:10px;height:114px;
+      transform:translateX(-50%);
+      border-radius:30px;
+      background:linear-gradient(90deg,#4c744e,#80a975,#4d7750);
+      z-index:-1;
+    }
+
+    .leaf{
+      position:absolute;
+      left:51%;top:251px;
+      width:77px;height:30px;
+      border-radius:100% 0 100% 0;
+      background:linear-gradient(135deg,#82aa78,#5d895e);
+      transform:rotate(-17deg);
+      z-index:-1;
+    }
+
+    .main-btn{
+      margin-top:27px;
+      border:0;
+      border-radius:999px;
+      padding:15px 29px;
+      color:white;
+      font-size:1rem;
+      font-weight:800;
+      cursor:pointer;
+      background:linear-gradient(135deg,var(--rose),var(--peach));
+      box-shadow:0 14px 32px rgba(208,88,111,.25);
+      transition:.25s ease;
+    }
+
+    .main-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 38px rgba(208,88,111,.34);
+    }
+
+    .main-btn:active{transform:scale(.97)}
+
+    .message-card{
+      margin-top:20px;
+      padding:21px 23px;
+      border-radius:25px;
+      border:1px solid rgba(205,85,108,.1);
+      background:rgba(255,255,255,.70);
+      box-shadow:0 14px 34px rgba(97,60,68,.07);
+      color:var(--muted);
+      font-size:1.04rem;
+      line-height:1.82;
+    }
+
+    .bouquet{
+      position:relative;
+      width:min(630px,100%);
+      height:355px;
+      margin:-3px auto 6px;
+    }
+
+    .flower-item{
+      position:absolute;
+      left:50%;
+      bottom:50px;
+      width:140px;
+      height:260px;
+      transform-origin:bottom center;
+      opacity:0;
+    }
+
+    #screen3.active .flower-item{
+      animation:bloom .9s cubic-bezier(.2,.74,.25,1) forwards;
+    }
+
+    .flower-item:nth-child(1){transform:translateX(-190px) rotate(-24deg);animation-delay:.08s!important}
+    .flower-item:nth-child(2){transform:translateX(-132px) rotate(-14deg);animation-delay:.19s!important}
+    .flower-item:nth-child(3){transform:translateX(-73px) rotate(-5deg);animation-delay:.30s!important}
+    .flower-item:nth-child(4){transform:translateX(-7px) rotate(5deg);animation-delay:.41s!important}
+    .flower-item:nth-child(5){transform:translateX(54px) rotate(14deg);animation-delay:.52s!important}
+    .flower-item:nth-child(6){transform:translateX(112px) rotate(24deg);animation-delay:.63s!important}
+
+    @keyframes bloom{
+      from{opacity:0;filter:blur(5px);margin-bottom:-30px;scale:.78}
+      to{opacity:1;filter:none;margin-bottom:0;scale:1}
+    }
+
+    .mini-head{
+      position:absolute;
+      left:50%;top:0;
+      width:118px;height:118px;
+      transform:translateX(-50%);
+      border-radius:50%;
+      background:repeating-conic-gradient(
+        #ef7e8d 0 6deg,
+        #f9ad96 6deg 12deg,
+        #e96e82 12deg 18deg,
+        #ffc0a5 18deg 24deg
+      );
+      -webkit-mask:radial-gradient(circle,transparent 0 25%,#000 26%);
+      mask:radial-gradient(circle,transparent 0 25%,#000 26%);
+      filter:drop-shadow(0 8px 13px rgba(132,69,81,.14));
+    }
+
+    .mini-head::before{
+      content:"";
+      position:absolute;
+      inset:18px;
+      border-radius:50%;
+      background:repeating-conic-gradient(#e96e82 0 8deg,#f8aa91 8deg 16deg);
+      -webkit-mask:radial-gradient(circle,transparent 0 29%,#000 30%);
+      mask:radial-gradient(circle,transparent 0 29%,#000 30%);
+    }
+
+    .mini-center{
+      position:absolute;
+      left:50%;top:59px;
+      width:43px;height:43px;
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+      background:radial-gradient(circle,#603f2e 0 21%,#916139 22% 46%,#d79b3c 47% 72%,#efc45e 73%);
+      box-shadow:0 5px 12px rgba(81,48,35,.20);
+      z-index:3;
+    }
+
+    .mini-stem{
+      position:absolute;
+      left:50%;top:104px;
+      width:8px;height:160px;
+      transform:translateX(-50%);
+      border-radius:30px;
+      background:linear-gradient(90deg,#4d754e,#7ea572,#4f7751);
+      z-index:-1;
+    }
+
+    .wrap{
+      position:absolute;
+      left:50%;bottom:12px;
+      width:302px;height:138px;
+      transform:translateX(-50%);
+      clip-path:polygon(4% 0,96% 0,72% 100%,28% 100%);
+      background:linear-gradient(145deg,rgba(255,248,241,.98),rgba(233,198,181,.97));
+      box-shadow:0 17px 34px rgba(104,69,72,.14);
+      z-index:4;
+    }
+
+    .wrap::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(105deg,transparent 0 44%,rgba(255,255,255,.44) 45% 55%,transparent 56%);
+    }
+
+    .ribbon{
+      position:absolute;
+      left:50%;bottom:52px;
+      width:94px;height:28px;
+      transform:translateX(-50%);
+      border-radius:999px;
+      background:linear-gradient(135deg,#d95f77,#ee8496);
+      box-shadow:0 6px 14px rgba(157,58,80,.16);
+      z-index:5;
+    }
+
+    .ribbon::before,.ribbon::after{
+      content:"";
+      position:absolute;
+      top:12px;
+      width:48px;height:34px;
+      background:#da6178;
+      clip-path:polygon(0 0,100% 25%,72% 100%);
+    }
+
+    .ribbon::before{left:-34px}
+    .ribbon::after{right:-34px;transform:scaleX(-1)}
+
+    .signature{
+      margin-top:20px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:1.4rem;
+    }
+
+    .heart{
+      display:inline-block;
+      color:#d85f77;
+      animation:beat 1.15s infinite;
+    }
+
+    @keyframes beat{50%{transform:scale(1.18)}}
+
+    .final-line{
+      margin-top:12px;
+      opacity:0;
+      transform:translateY(8px);
+      color:var(--muted);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:1.1rem;
+      transition:1s ease;
+    }
+
+    .final-line.show{
+      opacity:1;
+      transform:none;
+    }
+
+    .petal-fall{
+      position:fixed;
+      top:-35px;
+      width:17px;height:27px;
+      border-radius:70% 30% 70% 30%;
+      background:linear-gradient(160deg,#f9ad94,#e56e82);
+      opacity:.61;
+      pointer-events:none;
+      z-index:30;
+      animation:fall linear forwards;
+    }
+
+    @keyframes fall{
+      to{transform:translateY(115vh) rotate(560deg) translateX(75px)}
+    }
+
+    .tiny{
+      margin-top:20px;
+      color:#9a7f85;
+      font-size:.8rem;
+    }
+
+    @media(max-width:600px){
+      main{padding:10px 0}
+      .card{
+        min-height:calc(100vh - 20px);
+        padding:28px 14px;
+        border-radius:27px;
+      }
+      .single-flower{
+        transform:scale(.88);
+        margin-top:-8px;
+        margin-bottom:-24px;
+      }
+      .bouquet{
+        transform:scale(.71);
+        margin-top:-54px;
+        margin-bottom:-58px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section class="card">
+
+      <div class="screen active" id="screen1">
+        <p class="eyebrow">Un detalle pensado para ti</p>
+        <h1>Anahí</h1>
+
+        <div class="typewriter">
+          <span id="typedIntro"></span><span class="cursor" id="cursor1"></span>
+        </div>
+
+        <div class="single-flower" aria-label="Una gerbera">
+          <div class="gerbera">
+            <div class="petal-ring"></div>
+            <div class="petal-ring inner"></div>
+            <div class="flower-center"></div>
+            <div class="stem"></div>
+            <div class="leaf"></div>
+          </div>
+        </div>
+
+        <button class="main-btn" onclick="showMeaning()">Descubrir su significado</button>
+      </div>
+
+      <div class="screen" id="screen2">
+        <p class="eyebrow">El mensaje de una gerbera</p>
+        <h2>Eres la única</h2>
+
+        <p class="copy">
+          Una sola gerbera puede decir:
+          <br><span class="highlight">“Eres la única en mi vida”.</span>
+        </p>
+
+        <div class="message-card">
+          Elegí esta flor porque es tu favorita,
+          pero también porque tiene la forma perfecta de decir algo que siento.
+          <br><br>
+          Entre tantas flores, escogí la que más te gusta.
+          Y entre tantas personas, mi corazón siempre encuentra la forma de volver a ti.
+          <br><br>
+          <strong>Porque contigo, hasta los días más simples se sienten un poquito más bonitos.</strong>
+        </div>
+
+        <button class="main-btn" onclick="showBouquet()">Hay algo más para ti…</button>
+      </div>
+
+      <div class="screen" id="screen3">
+        <p class="eyebrow">Ahora sí, la sorpresa</p>
+        <h2>Seis gerberas para ti</h2>
+
+        <div class="bouquet" aria-label="Ramo de seis gerberas">
+          <div class="flower-item"><div class="mini-head"></div><div class="mini-center"></div><div class="mini-stem"></div></div>
+          <div class="flower-item"><div class="mini-head"></div><div class="mini-center"></div><div class="mini-stem"></div></div>
+          <div class="flower-item"><div class="mini-head"></div><div class="mini-center"></div><div class="mini-stem"></div></div>
+          <div class="flower-item"><div class="mini-head"></div><div class="mini-center"></div><div class="mini-stem"></div></div>
+          <div class="flower-item"><div class="mini-head"></div><div class="mini-center"></div><div class="mini-stem"></div></div>
+          <div class="flower-item"><div class="mini-head"></div><div class="mini-center"></div><div class="mini-stem"></div></div>
+          <div class="wrap"></div>
+          <div class="ribbon"></div>
+        </div>
+
+        <p class="copy">
+          Seis gerberas tienen un significado muy especial:
+          <br><span class="highlight">“Estoy totalmente enamorado de ti”.</span>
+        </p>
+
+        <div class="message-card">
+          No elegí seis por casualidad.
+          Elegí seis porque son tus flores favoritas
+          y porque juntas dicen lo que muchas veces no sé cómo expresar.
+          <br><br>
+          Cada una representa una razón para admirarte:
+          tu sonrisa, tu forma de ser, tu ternura, tu manera de alegrar mis días,
+          lo bien que se siente tenerte cerca y todo lo bonito que todavía quiero vivir contigo.
+          <br><br>
+          Espero que cuando las mires recuerdes este momento
+          y sepas que cada una fue elegida pensando únicamente en ti.
+        </div>
+
+        <p class="signature">Para ti, con todo mi cariño.<br>Aarón <span class="heart">♥</span></p>
+        <p class="final-line" id="final1">Gracias por llegar a mi vida y hacerla sentir más especial.</p>
+        <p class="final-line" id="final2">Ojalá estas flores puedan decirte todo lo bonito que significas para mí.</p>
+        <p class="tiny">Toca la pantalla para hacer caer pétalos 🌼</p>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    function typeText(elementId,text,speed=34,callback){
+      const target=document.getElementById(elementId);
+      let i=0;
+      const timer=setInterval(()=>{
+        target.textContent+=text.charAt(i);
+        i++;
+        if(i>=text.length){
+          clearInterval(timer);
+          if(callback) callback();
+        }
+      },speed);
+    }
+
+    function switchScreen(from,to){
+      document.getElementById(from).classList.remove("active");
+      setTimeout(()=>document.getElementById(to).classList.add("active"),130);
+    }
+
+    function showMeaning(){
+      switchScreen("screen1","screen2");
+      createPetals(12);
+    }
+
+    function showBouquet(){
+      switchScreen("screen2","screen3");
+      createPetals(28);
+      setTimeout(()=>document.getElementById("final1").classList.add("show"),2500);
+      setTimeout(()=>document.getElementById("final2").classList.add("show"),3800);
+    }
+
+    function createPetals(amount=8){
+      for(let i=0;i<amount;i++){
+        const petal=document.createElement("span");
+        petal.className="petal-fall";
+        petal.style.left=Math.random()*100+"vw";
+        petal.style.animationDuration=(5+Math.random()*4)+"s";
+        petal.style.animationDelay=(Math.random()*1.3)+"s";
+        petal.style.transform=`scale(${.55+Math.random()*.9})`;
+        document.body.appendChild(petal);
+        setTimeout(()=>petal.remove(),10000);
+      }
+    }
+
+    document.addEventListener("click",e=>{
+      if(!e.target.closest("button")) createPetals(4);
+    });
+
+    window.addEventListener("load",()=>{
+      typeText(
+        "typedIntro",
+        "Hay personas que llegan sin hacer ruido y, aun así, terminan iluminándolo todo. Tú eres una de ellas. Por eso elegí tu flor favorita: porque quería que esta gerbera te hablara por mí y te recordara lo especial que eres para mí.",
+        32,
+        ()=>document.getElementById("cursor1").style.display="none"
+      );
+      createPetals(8);
+    });
+  </script>
+</body>
+</html>
